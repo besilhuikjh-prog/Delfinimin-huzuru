@@ -3,354 +3,607 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10211f">
-<meta name="description" content="Delfinimin huzuru 🤍 — yağmur, doğa sesleri, müzik ve huzurlu manzaralar.">
+<meta name="theme-color" content="#091716">
 <title>Delfinimin huzuru 🤍</title>
+
 <style>
-:root{--bg:#091716;--panel:rgba(9,25,24,.78);--line:rgba(237,247,239,.17);--text:#f3f5ed;--muted:#c4d4ca;--mint:#c8e5d2;--gold:#f0d7a3}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
-button,input,textarea,select{font:inherit}button{cursor:pointer}
-.backdrop{position:fixed;inset:0;z-index:-3;background:linear-gradient(180deg,rgba(4,14,15,.28),rgba(4,15,15,.86)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=2200&q=90') center/cover;transition:background-image .5s}
-.rain-overlay{position:fixed;inset:-20% 0 0;z-index:-1;pointer-events:none;opacity:.28;background-image:repeating-linear-gradient(103deg,transparent 0 19px,rgba(218,239,242,.38) 20px,transparent 21px 48px);background-size:100px 160px;animation:rainfall .42s linear infinite}
-@keyframes rainfall{to{transform:translateY(160px)}}@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
-header{position:sticky;top:0;z-index:10;background:rgba(5,17,17,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.nav{max-width:1180px;margin:auto;padding:13px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}.brand{font-weight:800;letter-spacing:.3px;white-space:nowrap}.brand span{color:var(--mint)}
-nav{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}nav a{color:var(--text);text-decoration:none;padding:9px 11px;border-radius:99px;font-size:.9rem}nav a:hover{background:#ffffff12}
-main{max-width:1180px;margin:auto;padding:20px 20px 48px}.hero{min-height:58vh;display:flex;align-items:center;padding:55px 0 40px}.hero-content{max-width:690px;animation:fadeUp .8s ease both}.eyebrow{color:var(--mint);letter-spacing:3px;text-transform:uppercase;font-size:.76rem;font-weight:750}h1{font-size:clamp(3rem,9vw,6.8rem);line-height:.94;letter-spacing:-.06em;margin:18px 0 22px;text-shadow:0 8px 35px #0009}h1 em{font-family:Georgia,serif;font-weight:400;color:#d5e8d9}.lead{font-size:clamp(1rem,2.3vw,1.2rem);line-height:1.8;color:#edf3ed;max-width:570px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:11px 16px;background:#ffffff10;color:var(--text);font-weight:650;font-size:.92rem;text-decoration:none;transition:.2s}.btn:hover{transform:translateY(-2px);background:#ffffff1c}.btn.primary{background:#dcebe0;color:#10221b;border-color:#dcebe0}.btn.small{padding:8px 12px;font-size:.85rem}.btn.danger{border-color:#f2b9b94d}
-.section{margin-top:28px;padding:25px;border:1px solid var(--line);border-radius:25px;background:var(--panel);backdrop-filter:blur(17px);box-shadow:0 18px 60px #0002;scroll-margin-top:95px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:18px}h2{font-size:clamp(1.4rem,4vw,2rem);margin:0 0 7px;letter-spacing:-.03em}h3{margin:0 0 7px}.muted{color:var(--muted);font-size:.94rem;line-height:1.65;margin:0}.tag{font-size:.75rem;color:var(--mint);border:1px solid var(--line);padding:5px 9px;border-radius:99px;white-space:nowrap}
-input,textarea,select{width:100%;min-width:0;background:#0004;color:var(--text);border:1px solid var(--line);border-radius:13px;padding:12px 14px;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--mint);box-shadow:0 0 0 3px #c8e5d21b}input::placeholder,textarea::placeholder{color:#b4c5bc}select option{background:#10211f}
-.search-row{display:flex;gap:9px}.song-help{font-size:.83rem;color:var(--muted);line-height:1.6;margin-top:10px}.embed-wrap{margin-top:16px;display:none}.embed-wrap.visible{display:block}.embed-wrap iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:15px;background:#000}
-.api-settings{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03)}.api-settings summary{cursor:pointer;font-weight:700}.video-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}.video-result{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.04)}.video-result img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#111}.video-result .video-info{padding:11px}.video-result h3{font-size:.96rem;line-height:1.35;margin:0 0 7px}.video-result p{font-size:.82rem;color:var(--muted);margin:0 0 10px}.video-result button{width:100%}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.tile{min-height:210px;border-radius:19px;overflow:hidden;position:relative;display:flex;align-items:end;padding:17px;background-size:cover;background-position:center;border:1px solid #ffffff25;cursor:pointer;transition:transform .2s}.tile:hover{transform:translateY(-3px)}.tile:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(3,12,12,.9),transparent 83%)}.tile>div{position:relative}.tile h3{font-size:1.12rem}.tile p{margin:0;color:#e0e9e1;font-size:.86rem}.forest{background-image:url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=900&q=85')}.window{background-image:url('https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=900&q=85')}.lake{background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=85')}.mountain{background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85')}.rainforest{background-image:url('https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=900&q=85')}.night{background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=85')}
-.controls-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.control-card{border:1px solid var(--line);border-radius:17px;padding:15px;background:#ffffff08}.control-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.control-top strong{font-size:.98rem}.toggle{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:.86rem}.toggle input{width:43px;height:24px;appearance:none;padding:2px;border-radius:30px;background:#56635e;cursor:pointer;flex-shrink:0}.toggle input:before{content:"";display:block;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}.toggle input:checked{background:#b4d7c1}.toggle input:checked:before{transform:translateX(19px);background:#183027}.range-row{display:flex;align-items:center;gap:10px}.range-row input{padding:0;border:0;box-shadow:none;accent-color:#c8e5d2}.status{min-height:1.4em;margin-top:13px;color:var(--mint);font-size:.88rem}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.note-box{padding:18px;border-radius:18px;background:#ffffff08;border:1px solid var(--line)}textarea{resize:vertical;min-height:100px}.quote{font-family:Georgia,serif;font-size:1.35rem;line-height:1.55;color:#e9f1e8}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gallery img{width:100%;height:160px;object-fit:cover;border-radius:15px;border:1px solid #ffffff22;cursor:pointer;transition:transform .2s}.gallery img:hover{transform:scale(1.02)}
-.favorites{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.fav-chip{border:1px solid var(--line);border-radius:999px;padding:8px 11px;background:#ffffff0d;color:var(--text);font-size:.86rem}
-.timer-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.timer-display{font-size:2rem;font-variant-numeric:tabular-nums;font-weight:750;letter-spacing:2px}.letter{display:none;position:fixed;inset:0;z-index:30;background:#020807d9;backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:20px}.letter.open{display:flex}.letter-card{max-width:570px;width:100%;max-height:85vh;overflow:auto;padding:30px;border-radius:23px;background:linear-gradient(145deg,#f4f0df,#d8e4d8);color:#18302a;box-shadow:0 25px 100px #0008;animation:fadeUp .4s ease}.letter-card p{line-height:1.8}.letter-card .btn{color:#173029;border-color:#18302a55;background:#ffffff55}.close{float:right;border:0;background:transparent;color:inherit;font-size:1.5rem}
-.lightbox{display:none;position:fixed;inset:0;z-index:25;background:#000e;align-items:center;justify-content:center;padding:18px}.lightbox.open{display:flex}.lightbox img{max-width:96vw;max-height:90vh;object-fit:contain;border-radius:12px}.lightbox button{position:absolute;top:18px;right:20px;background:#ffffff20;color:white;border:1px solid #ffffff40;border-radius:50%;width:42px;height:42px;font-size:1.4rem}
-footer{text-align:center;padding:32px 12px 10px;color:#d2ddd5;font-size:.9rem}footer .heart{color:#f0b6bb}.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:40;background:#e1eee4;color:#10211b;border-radius:99px;padding:11px 16px;font-weight:650;transition:.25s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:760px){.nav{align-items:flex-start;flex-direction:column;padding:12px 15px}.nav nav{width:100%;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap}.nav nav a{white-space:nowrap}.hero{min-height:51vh;padding:42px 0 28px}.section{padding:19px;border-radius:21px}.tiles{grid-template-columns:1fr 1fr}.tile{min-height:175px}.controls-grid,.two-col{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.gallery img{height:145px}.search-row{flex-direction:column}.search-row .btn{width:100%}.section-head{align-items:flex-start;flex-direction:column}.tag{white-space:normal}}
-@media(max-width:420px){main{padding-left:13px;padding-right:13px}.tiles{grid-template-columns:1fr}.tile{min-height:190px}.gallery img{height:120px}}
-
-/* Welcome gate, personalized greeting, and theme-specific rain */
-.welcome-gate{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;background:linear-gradient(145deg,rgba(4,15,18,.72),rgba(11,29,28,.80)),url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=85') center/cover;backdrop-filter:blur(10px);transition:opacity .45s ease,visibility .45s ease}.welcome-gate.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.welcome-card{width:min(100%,440px);padding:clamp(24px,6vw,38px);border:1px solid rgba(220,245,240,.22);border-radius:26px;background:rgba(7,20,21,.83);box-shadow:0 24px 80px rgba(0,0,0,.42);color:#f5fbf8;text-align:center}.welcome-mark{font-size:42px;margin-bottom:8px}.welcome-kicker{font-size:.72rem;letter-spacing:.19em;color:#a8d4c8}.welcome-card h1{font-size:clamp(2rem,8vw,3rem);margin:10px 0}.welcome-card>p:not(.welcome-kicker):not(.maker-signature){color:#c5d7d1;line-height:1.6}.welcome-card form{text-align:left;display:grid;gap:10px;margin-top:22px}.welcome-card label{font-size:.9rem;color:#d6e6e0}.welcome-card input,.welcome-card select{width:100%;min-width:0;border:1px solid rgba(220,245,240,.25);border-radius:12px;padding:13px 14px;color:#f5fbf8;background:#102725;font:inherit}.welcome-card select option{background:#102725;color:#fff}.welcome-submit{width:100%;margin-top:7px;padding:14px}.maker-signature{margin:24px 0 0;font-size:.88rem;color:#c2d7d1}.maker-signature strong{color:#fff;letter-spacing:.06em}#rainCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:500;opacity:.62}.personal-greeting{margin:12px auto 18px;text-align:center;font-size:clamp(1.1rem,4vw,1.65rem);font-weight:700;color:var(--text);text-shadow:0 2px 18px rgba(0,0,0,.25)}.personal-greeting small{display:block;font-size:.78rem;font-weight:400;color:var(--muted);margin-top:5px}.theme-window #rainCanvas{opacity:.8}.theme-night #rainCanvas{opacity:.52}.theme-sunset #rainCanvas{opacity:.35}.theme-lake #rainCanvas{opacity:.68}
-
-.real-audio-panel{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.035)}.real-audio-panel h3{margin:0 0 8px}.real-audio-panel a{color:#b9e8dc;text-decoration:underline}.real-audio-panel .actions{margin-top:10px}
-
-.quick-nav{position:sticky;top:56px;z-index:9;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;max-width:1180px;margin:0 auto;padding:10px 20px;background:rgba(5,17,17,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.quick-nav button{border:1px solid var(--line);border-radius:13px;padding:11px 7px;color:var(--text);background:rgba(255,255,255,.05);font-weight:700;font-size:.88rem}.quick-nav .quick-theme{background:rgba(200,229,210,.15);border-color:rgba(200,229,210,.45)}.theme-hub{scroll-margin-top:145px}.theme-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.theme-card{min-height:138px;text-align:left;padding:16px;border-radius:17px;border:1px solid var(--line);color:var(--text);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025));display:flex;flex-direction:column;gap:7px;transition:transform .2s,border-color .2s,background .2s}.theme-card:active{transform:scale(.98)}.theme-card.active{border-color:var(--mint);background:rgba(200,229,210,.14);box-shadow:0 0 0 1px #c8e5d233}.theme-emoji{font-size:1.65rem}.theme-card strong{font-size:.96rem}.theme-card small{color:var(--muted);line-height:1.35}.theme-mixer{margin-top:16px;padding:18px;border:1px solid var(--line);border-radius:19px;background:var(--panel);scroll-margin-top:145px}.theme-mixer h3{margin:0 0 15px}.mixer-control{margin:14px 0}.mixer-control label{display:flex;justify-content:space-between;gap:10px;font-weight:650;margin-bottom:8px}.mixer-control input{width:100%;accent-color:#b8decb}.theme-mixer .actions{display:flex;gap:9px;flex-wrap:wrap}.theme-mixer .song-help{margin-bottom:0}
-@media(max-width:650px){.nav{padding:10px 12px}.nav nav{display:none}.quick-nav{top:48px;padding:8px 10px;gap:6px}.quick-nav button{font-size:.78rem;padding:10px 3px}.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.theme-card{min-height:126px;padding:12px}.theme-card strong{font-size:.88rem}.theme-card small{font-size:.76rem}.theme-mixer{padding:14px}}
-
-
-/* Full-screen, phone-first presentation */
-html,body{width:100%;min-height:100%;margin:0}
-body{min-height:100svh;overflow-x:hidden}
-.welcome-gate{min-height:100svh;min-height:100dvh;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));background-position:center;background-size:cover}
-.welcome-card{max-height:calc(100dvh - 36px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
-.welcome-slogan{font-size:1.08rem;line-height:1.65;margin:12px auto 4px;max-width:290px;color:#e0eee7!important}
-main{width:100%;max-width:1180px;margin-inline:auto}
-img,video,iframe{max-width:100%}
-button,input,select,textarea{max-width:100%}
-@media(max-width:600px){
-  main{padding:14px 13px calc(32px + env(safe-area-inset-bottom))}
-  .nav{padding-left:13px;padding-right:13px}
-  .brand{font-size:.95rem}
-  .quick-nav{padding-left:9px;padding-right:9px}
-  .section{margin-top:22px}
-  .hero{min-height:54svh;min-height:54dvh;padding:30px 0 25px}
-  .hero h1{font-size:clamp(2.7rem,15vw,4.7rem)}
-  .welcome-card{width:min(100%,420px);padding:25px 21px;border-radius:23px}
-  .welcome-mark{font-size:35px}
-  .welcome-card h1{font-size:clamp(2rem,10vw,2.8rem)}
-  .welcome-slogan{font-size:1rem}
-  .welcome-card input,.welcome-card select{min-height:48px}
-  .welcome-submit{min-height:49px}
-  .tiles,.controls-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .search-row{display:flex;flex-wrap:wrap}
-  .search-row input{flex:1 1 100%;min-width:0}
-  .search-row button{width:100%}
-  .video-results{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .video-result .video-info{padding:9px}
-  .video-result h3{font-size:.82rem}
-  .video-result p{font-size:.74rem}
-  .video-result button{font-size:.78rem;padding:9px 6px}
+:root {
+  --bg:#091716;
+  --panel:rgba(9,25,24,.84);
+  --line:rgba(237,247,239,.2);
+  --text:#f3f5ed;
+  --muted:#c4d4ca;
+  --mint:#dcebe0;
 }
-@media(max-width:380px){
-  .theme-grid,.controls-grid,.tiles,.video-results{grid-template-columns:1fr}
-  .quick-nav button{font-size:.72rem}
-  .welcome-card{padding:22px 17px}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,sans-serif;
 }
+button,input,select {font:inherit}
+button {cursor:pointer}
+.backdrop {
+  position:fixed;inset:0;z-index:-2;
+  background:
+    linear-gradient(#04100b77,#04100bd9),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=85")
+    center/cover;
+}
+header {
+  padding:16px;
+  background:#061311bb;
+  border-bottom:1px solid var(--line);
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.brand {font-size:20px;font-weight:800}
+.brand span {color:#dcebe0}
+main {width:min(100% - 26px,850px);margin:auto;padding:20px 0 45px}
+.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+  margin:18px 0;
+  backdrop-filter:blur(12px);
+  box-shadow:0 15px 40px #0003;
+}
+h1,h2,h3 {line-height:1.2}
+h2 {font-size:23px}
+p {line-height:1.7;color:var(--muted)}
+button,.btn {
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:12px 16px;
+  background:#ffffff10;
+  color:var(--text);
+}
+button:active {transform:scale(.98)}
+.primary {
+  background:var(--mint);
+  color:#10221b;
+  border-color:var(--mint);
+  font-weight:750;
+}
+input,select {
+  width:100%;
+  padding:14px;
+  border-radius:13px;
+  border:1px solid var(--line);
+  background:#102725;
+  color:white;
+  margin:7px 0 14px;
+}
+label {display:block;color:var(--muted);font-size:14px}
+.actions {display:flex;gap:10px;flex-wrap:wrap}
+.actions button {flex:1}
+.hidden {display:none!important}
 
+/* Giriş ekranı */
+#welcome {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  background:
+    linear-gradient(#04100b88,#04100bdc),
+    url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=85")
+    center/cover;
+}
+.welcome-card {
+  width:min(100%,440px);
+  max-height:95dvh;
+  overflow:auto;
+  padding:28px 22px;
+  border:1px solid #dcebe044;
+  border-radius:27px;
+  background:#061715e8;
+  text-align:center;
+  box-shadow:0 25px 80px #0008;
+}
+.mark {font-size:43px}
+.kicker {letter-spacing:4px;font-size:12px;color:#b4d7ca}
+.welcome-card h1 {font-size:42px;margin:12px 0}
+.welcome-card .primary {width:100%;border-radius:50px;padding:16px}
+.signature {margin-top:22px}
+.signature strong {color:white;letter-spacing:2px}
+
+/* Ana sayfa */
+.hero {padding:28px 0}
+.hero h1 {font-size:clamp(38px,9vw,65px);letter-spacing:-2px}
+.hero h1 em {color:#dcebe0;font-family:Georgia,serif;font-weight:400}
+.tag {font-size:12px;letter-spacing:2px;color:#c8e5d2}
+.theme-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.theme-grid button {min-height:90px;text-align:left}
+.theme-grid button.active {border-color:#dcebe0;background:#dcebe022}
+.status {font-size:13px;min-height:20px}
+video,iframe {width:100%;border:0;border-radius:13px}
+iframe {aspect-ratio:16/9}
+input[type=range] {padding:0;accent-color:#dcebe0}
+.timer {font-size:40px;font-weight:800;letter-spacing:3px}
+footer {text-align:center;color:#c4d4ca;padding:25px}
+#rain {
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:5;
+}
+@media(max-width:420px) {
+  .card {padding:17px}
+  .welcome-card {padding:23px 18px}
+  .welcome-card h1 {font-size:36px}
+}
 </style>
 </head>
-<body>
 
-<div id="welcomeGate" class="welcome-gate" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+<body>
+<div class="backdrop" id="backdrop"></div>
+<canvas id="rain"></canvas>
+
+<!-- GİRİŞ EKRANI -->
+<div id="welcome">
   <div class="welcome-card">
-    <div class="welcome-mark">🌧️</div>
-    <p class="welcome-kicker">ELİFİM İÇİN · KÜÇÜK BİR DÜNYA</p>
-    <h1 id="welcomeTitle">Hoş geldin</h1>
-    <p class="welcome-slogan">Merhaba, biraz huzur bulmaya ne dersin?</p>
+    <div class="mark">🌧️</div>
+    <p class="kicker">ELİFİM İÇİN · KÜÇÜK BİR DÜNYA</p>
+    <h1>Hoş geldin</h1>
+    <p>Merhaba, biraz huzur bulmaya ne dersin?</p>
+
     <form id="welcomeForm">
       <label for="visitorName">Kullanıcı adın</label>
-      <input id="visitorName" name="visitorName" type="text" maxlength="28" autocomplete="nickname" placeholder="Örn. Elif" required>
+      <input id="visitorName" maxlength="28"
+             placeholder="Örn. Elif" required>
+
       <label for="visitorTheme">Nasıl bir hava olsun?</label>
-      <select id="visitorTheme" name="visitorTheme">
+      <select id="visitorTheme">
         <option value="forest">🌲 Yağmurlu orman</option>
-        <option value="window">🪟 Yağmur damlaları camda</option>
-        <option value="lake">🌊 Göl kenarında yağmur</option>
+        <option value="window">🪟 Camda yağmur</option>
+        <option value="lake">🌊 Göl kenarı</option>
         <option value="night">🌙 Yağmurlu gece</option>
-        <option value="sunset">🌅 Yağmur sonrası gün batımı</option>
+        <option value="sunset">🌅 Gün batımı</option>
       </select>
-      <button class="btn primary welcome-submit" type="submit">Giriş yap ♥</button>
+
+      <button class="primary" type="submit">Giriş yap ♥</button>
     </form>
-    <p class="maker-signature">Yapımcı: <strong>901|Wysiz</strong></p>
+
+    <p class="signature">Yapımcı: <strong>901|Wysiz</strong></p>
+    <p id="loginStatus" class="status"></p>
   </div>
 </div>
-<canvas id="rainCanvas" aria-hidden="true"></canvas>
 
-<div class="backdrop" id="backdrop" aria-hidden="true"></div><div class="rain-overlay" id="rainOverlay" aria-hidden="true"></div>
-<header><div class="nav">
-  <div class="brand">🤍 <span>Delfinimin huzuru</span></div>
-  <nav aria-label="Ana menü"><a href="#anasayfa">Ana Sayfa</a><a href="#muzik">Müzik</a><a href="#sesler">Doğa Sesleri</a><a href="#dogam">Manzaralar</a><a href="#ani">Anı Defteri</a></nav>
-</div></header>
-<div class="quick-nav" aria-label="Hızlı bölümler">
-  <button type="button" data-jump="muzik">⌕ Şarkı Ara</button>
-  <button type="button" data-jump="themeHub" class="quick-theme">✦ Tema</button>
-  <button type="button" data-jump="huzur">◷ Huzur Sayacı</button>
-</div>
+<header>
+  <div class="brand">🤍 Delfinimin <span>huzuru</span></div>
+</header>
 
 <main>
-<section class="section theme-hub" id="themeHub">
-  <div class="section-head"><div><h2>Temanı seç ✨</h2><p class="muted">Bir manzara seç; yağmur ve gök gürültüsü ayarlarını bu bölümden yönet.</p></div><span class="tag" id="activeThemeLabel">Tema seçilmedi</span></div>
-  <div class="theme-grid">
-    <button class="theme-card" data-theme="forest"><span class="theme-emoji">🌲</span><strong>Yağmurlu Orman</strong><small>Yapraklar ve derin orman</small></button>
-    <button class="theme-card" data-theme="window"><span class="theme-emoji">🪟</span><strong>Camda Yağmur</strong><small>Pencereye vuran damlalar</small></button>
-    <button class="theme-card" data-theme="lake"><span class="theme-emoji">🌊</span><strong>Göl Kenarı</strong><small>Sakin su ve yağmur</small></button>
-    <button class="theme-card" data-theme="night"><span class="theme-emoji">🌙</span><strong>Yağmurlu Gece</strong><small>Koyu, dingin bir atmosfer</small></button>
-    <button class="theme-card" data-theme="sunset"><span class="theme-emoji">🌅</span><strong>Yağmur Sonrası</strong><small>Gün batımı renkleri</small></button>
-    <button class="theme-card" data-theme="mountain"><span class="theme-emoji">⛰️</span><strong>Sisli Dağlar</strong><small>Serin dağ havası</small></button>
-  </div>
-  <div class="theme-mixer" id="themeMixer">
-    <h3 id="mixerTitle">Bir tema seçerek başla</h3>
-    <div class="mixer-control"><label for="themeRainVolume">🌧️ Yağmur sesi <span id="themeRainText">55%</span></label><input id="themeRainVolume" type="range" min="0" max="100" value="55"></div>
-    <div class="mixer-control"><label for="themeThunderVolume">⛈️ Gök gürültüsü <span id="themeThunderText">35%</span></label><input id="themeThunderVolume" type="range" min="0" max="100" value="35"></div>
-    <div class="mixer-control"><label for="themeMusicVolume">🎵 Şarkı sesi <span id="themeMusicText">70%</span></label><input id="themeMusicVolume" type="range" min="0" max="100" value="70"></div>
-    <div class="actions"><button class="btn primary" type="button" id="themeSoundToggle">⏸ Sesleri durdur</button><button class="btn" type="button" id="themeAudioChoose">Gerçek yağmur kaydı seç</button></div>
-    <p class="song-help" id="themeSoundStatus">Tema seçtiğinde yağmur ve gök gürültüsü efektleri otomatik başlar. Gerçek kayıt için ses dosyanı bir kez seçebilirsin.</p>
-  </div>
-</section>
-<div id="personalGreeting" class="personal-greeting" aria-live="polite"></div>
-<section class="hero" id="anasayfa"><div class="hero-content">
-  <div class="eyebrow">Biraz huzur, biraz yağmur</div>
-  <h1>Delfinimin<br><em>huzuru 🤍</em></h1>
-  <p class="lead">Yağmurun usulca yağdığı, ağaçların nefes aldığı ve insanın bir anlığına bütün telaşını unuttuğu küçük bir köşe. Kulaklığını tak, sevdiğin şarkıyı aç ve bu anın tadını çıkar. 🍃</p>
-  <div class="actions"><a class="btn primary" href="#muzik">♫ Bir şarkı bul</a><button class="btn" id="heroRain">🌧 Yağmuru başlat</button><button class="btn" id="openLetter">💌 Küçük bir mektup</button></div>
-</div></section>
+  <section class="hero">
+    <p class="tag">KENDİNE BİR NEFES VER</p>
+    <h1 id="greeting">Hoş geldin <em>🤍</em></h1>
+    <p>Biraz yağmur, biraz müzik ve dünyadan uzak sakin bir köşe.</p>
+    <div class="actions">
+      <button class="primary" onclick="go('themes')">✦ Tema seç</button>
+      <button onclick="go('music')">♫ Müzik</button>
+    </div>
+  </section>
 
-<section class="section" id="muzik"><div class="section-head"><div><h2>Senin şarkın 🎧</h2><p class="muted">Şarkı ara, sonuçlardan birini seç ve başka sayfaya geçmeden dinle.</p></div><span class="tag">Yağmur + müzik birlikte</span></div>
-  <form class="search-row" id="songForm"><input id="songQuery" type="search" placeholder="Şarkı veya sanatçı adı yaz…" aria-label="Şarkı veya sanatçı adı" required><button class="btn primary" type="submit">Bu sayfada ara</button></form>
-  <details class="api-settings"><summary>YouTube aramasını etkinleştir</summary><p class="song-help">Gerçek arama sonuçlarını burada listelemek için Google Cloud üzerinden oluşturulan YouTube Data API anahtarını gir. Anahtar bu tarayıcıda saklanır; herkese açık bir siteye koyacaksan API anahtarını Google Cloud'da web sitesi alan adıyla sınırlandır.</p><form class="search-row" id="apiForm"><input id="apiKeyInput" type="password" placeholder="YouTube Data API anahtarı" aria-label="YouTube Data API anahtarı" autocomplete="off"><button class="btn" type="submit">Anahtarı kaydet</button></form><button class="btn small" type="button" id="clearApiKey">Anahtarı sil</button></details>
-  <p class="song-help" id="searchStatus" aria-live="polite">API anahtarını kaydettikten sonra arama sonuçları burada görünür. İstersen video bağlantısını da aşağıya yapıştırabilirsin.</p>
-  <div class="video-results" id="videoResults"></div>
-  <form class="search-row" id="embedForm"><input id="videoInput" placeholder="YouTube bağlantısı veya video ID'si" aria-label="YouTube video bağlantısı"><button class="btn" type="submit">Burada oynat</button></form>
-  <div class="embed-wrap" id="embedWrap"><iframe id="youtubePlayer" title="YouTube müzik oynatıcı" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-  <div class="favorites" id="favorites"></div>
-  <div class="actions"><button class="btn small" id="saveSong">☆ Aramayı favorilere ekle</button><button class="btn small" id="clearFavs">Favorileri temizle</button></div>
-</section>
+  <section class="card" id="themes">
+    <h2>🌿 Manzaranı seç</h2>
+    <p>İstediğin atmosferi seçerek görünümü değiştir.</p>
+    <div class="theme-grid">
+      <button data-theme="forest" class="active">🌲<br>Yağmurlu orman</button>
+      <button data-theme="window">🪟<br>Camda yağmur</button>
+      <button data-theme="lake">🌊<br>Göl kenarı</button>
+      <button data-theme="night">🌙<br>Yağmurlu gece</button>
+      <button data-theme="sunset">🌅<br>Gün batımı</button>
+    </div>
+    <p id="themeStatus" class="status">Yağmurlu orman seçildi.</p>
+  </section>
 
-<section class="section" id="sesler"><div class="section-head"><div><h2>Doğanın sesleri 🍃</h2><p class="muted">Sesleri ayrı ayrı açıp kapat, seviyelerini kendine göre ayarla.</p></div></div>
-  <div class="controls-grid">
-    <div class="control-card"><div class="control-top"><strong>🌧️ Yağmur</strong><label class="toggle"><span>Açık</span><input type="checkbox" id="rainSwitch" aria-label="Yağmur sesini aç"></label></div><div class="range-row"><span>Ses</span><input id="rainVolume" type="range" min="0" max="100" value="55" aria-label="Yağmur ses seviyesi"><span id="rainVolText">55%</span></div></div>
-    <div class="control-card"><div class="control-top"><strong>🌬️ Rüzgâr</strong><label class="toggle"><span>Açık</span><input type="checkbox" id="windSwitch" aria-label="Rüzgâr sesini aç"></label></div><div class="range-row"><span>Ses</span><input id="windVolume" type="range" min="0" max="100" value="30" aria-label="Rüzgâr ses seviyesi"><span id="windVolText">30%</span></div></div>
-    <div class="control-card"><div class="control-top"><strong>🌊 Dere / su</strong><label class="toggle"><span>Açık</span><input type="checkbox" id="waterSwitch" aria-label="Su sesi aç"></label></div><div class="range-row"><span>Ses</span><input id="waterVolume" type="range" min="0" max="100" value="35" aria-label="Su ses seviyesi"><span id="waterVolText">35%</span></div></div>
-    <div class="control-card"><div class="control-top"><strong>🐦 Kuş sesleri</strong><label class="toggle"><span>Açık</span><input type="checkbox" id="birdSwitch" aria-label="Kuş sesini aç"></label></div><div class="range-row"><span>Ses</span><input id="birdVolume" type="range" min="0" max="100" value="25" aria-label="Kuş ses seviyesi"><span id="birdVolText">25%</span></div></div>
-    <div class="control-card"><div class="control-top"><strong>⛈️ Uzak gök gürültüsü</strong><label class="toggle"><span>Açık</span><input type="checkbox" id="thunderSwitch" aria-label="Gök gürültüsü aç"></label></div><p class="muted">Ara sıra yumuşak bir gök gürültüsü efekti.</p></div>
-    <div class="control-card"><div class="control-top"><strong>🌙 Gece modu</strong><label class="toggle"><span>Etkin</span><input type="checkbox" id="nightSwitch" aria-label="Gece görünümünü aç"></label></div><p class="muted">Daha koyu, sakin bir görünüm.</p></div>
-  </div><div class="actions"><button class="btn" id="allNatureOn">▶ Doğa seslerini aç</button><button class="btn" id="allNatureOff">⏸ Tüm sesleri kapat</button></div><div class="real-audio-panel"><h3>Gerçek yağmur ve gök gürültüsü 🌧️</h3><p class="muted">Gerçek kayıtları dinlemek için ses dosyasını cihazından seçebilirsin. Ücretsiz CC0 yağmur ve gök gürültüsü kaydı: <a href="https://bigsoundbank.com/rain-and-storm-s0124.html" target="_blank" rel="noopener">Rain and Thunder #1 — BigSoundBank</a>.</p><label class="btn small" for="realAudioFile">Cihazımdan ses seç</label><input id="realAudioFile" type="file" accept="audio/*" hidden><audio id="realRainAudio" controls loop preload="none" style="display:none;width:100%;margin-top:12px"></audio><div class="actions"><button class="btn small" id="realAudioPlay" type="button">▶ Gerçek sesleri oynat</button><button class="btn small" id="realAudioStop" type="button">⏹ Durdur</button></div></div><div class="status" id="audioStatus" role="status">Sesler kapalı. Açmak için bir düğmeye dokun.</div>
-</section>
+  <section class="card" id="music">
+    <h2>♫ Bir şarkı dinle</h2>
+    <p>YouTube video bağlantısını aşağıya yapıştır.</p>
+    <form id="musicForm">
+      <label for="videoUrl">YouTube bağlantısı</label>
+      <input id="videoUrl" type="url"
+             placeholder="https://www.youtube.com/watch?v=..."
+             required>
+      <button class="primary" type="submit">Videoyu aç</button>
+    </form>
+    <div id="playerBox" class="hidden">
+      <iframe id="player" title="YouTube oynatıcı"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+    <p id="musicStatus" class="status"></p>
+  </section>
 
-<section class="section" id="dogam"><div class="section-head"><div><h2>Doğanın içinde 🌲</h2><p class="muted">Bir manzaraya dokunarak tam ekran görüntüle.</p></div><button class="btn small" id="randomScene">✧ Rastgele manzara</button></div>
-  <div class="tiles">
-    <article class="tile forest scene" data-scene="forest" tabindex="0"><div><h3>Yağmurlu orman</h3><p>Yapraklarda dans eden damlalar.</p></div></article>
-    <article class="tile window scene" data-scene="window" tabindex="0"><div><h3>Yağmur vakti</h3><p>Dışarıdaki dünya biraz yavaşlasın.</p></div></article>
-    <article class="tile lake scene" data-scene="lake" tabindex="0"><div><h3>Sakin göl</h3><p>Su, gökyüzü ve huzur.</p></div></article>
-    <article class="tile mountain scene" data-scene="mountain" tabindex="0"><div><h3>Dağların sessizliği</h3><p>Bulutlara yakın bir mola.</p></div></article>
-    <article class="tile rainforest scene" data-scene="rainforest" tabindex="0"><div><h3>Yeşil dünya</h3><p>Doğanın derin nefesi.</p></div></article>
-    <article class="tile night scene" data-scene="night" tabindex="0"><div><h3>Yıldızlı gece</h3><p>Gökyüzünün altında huzur.</p></div></article>
-  </div>
-</section>
+  <section class="card" id="sounds">
+    <h2>🌧️ Yağmur sesleri</h2>
+    <p>Tarayıcıda oluşturulan yumuşak yağmur sesini açabilirsin.</p>
+    <div class="actions">
+      <button class="primary" id="rainToggle">▶ Yağmuru başlat</button>
+      <button id="rainStop">■ Durdur</button>
+    </div>
+    <label for="rainVolume">Ses seviyesi</label>
+    <input id="rainVolume" type="range" min="0" max="100" value="35">
+    <p id="soundStatus" class="status">Ses kapalı.</p>
+  </section>
 
-<section class="section" id="ani"><div class="section-head"><div><h2>Elif'in anı defteri 📖</h2><p class="muted">Fotoğraf ve not ekle. Bu tarayıcıda saklanır; başka cihazlara otomatik aktarılmaz.</p></div></div>
-  <div class="two-col">
-    <div class="note-box"><h3>🌿 Bugünün sözü</h3><p class="quote" id="dailyQuote">“Bazen huzur, yağmurun sesini dinleyip hiçbir yere yetişmeye çalışmamaktır.”</p><button class="btn small" id="newQuote">Başka bir söz göster</button></div>
-    <div class="note-box"><h3>✍️ Bir dilek veya not</h3><textarea id="noteInput" placeholder="Aklından geçenleri buraya yaz…"></textarea><div class="actions"><button class="btn primary" id="saveNote">Notu kaydet</button><button class="btn" id="showNote">Kayıtlı notu göster</button></div><p class="song-help" id="noteStatus">Notlar yalnızca bu tarayıcıda saklanır.</p></div>
-  </div>
-  <div class="note-box" style="margin-top:14px"><h3>📷 Kendi fotoğrafını ekle</h3><p class="muted" style="margin-bottom:12px">Telefonundan bir doğa fotoğrafı seç; fotoğraf bu sayfada galeride görünür. Yerel olarak saklanabilir.</p><div class="search-row"><input type="file" id="photoInput" accept="image/*" aria-label="Fotoğraf seç"><button class="btn" id="clearPhotos">Eklenen fotoğrafları temizle</button></div><div class="gallery" id="gallery" style="margin-top:14px"></div></div>
-</section>
+  <section class="card" id="timer">
+    <h2>◷ Huzur sayacı</h2>
+    <p>Kendine küçük bir mola ver.</p>
+    <label for="minutes">Mola süresi</label>
+    <select id="minutes">
+      <option value="5">5 dakika</option>
+      <option value="10" selected>10 dakika</option>
+      <option value="15">15 dakika</option>
+      <option value="25">25 dakika</option>
+    </select>
+    <div class="timer" id="clock">10:00</div>
+    <div class="actions">
+      <button class="primary" id="timerStart">Başlat</button>
+      <button id="timerReset">Sıfırla</button>
+    </div>
+    <p id="timerStatus" class="status">Molan için hazırsın. 🍃</p>
+  </section>
 
-<section class="section" id="huzur"><div class="section-head"><div><h2>Kendine küçük bir mola ⏳</h2><p class="muted">5, 10 veya 20 dakika boyunca yağmuru dinle ve dinlen.</p></div></div><div class="timer-row"><select id="timerMinutes" aria-label="Mola süresi" style="max-width:180px"><option value="5">5 dakika</option><option value="10" selected>10 dakika</option><option value="20">20 dakika</option></select><div class="timer-display" id="timerDisplay">10:00</div><button class="btn primary" id="timerStart">Başlat</button><button class="btn" id="timerReset">Sıfırla</button></div><p class="status" id="timerStatus">Mola vermeye hazırsın.</p></section>
-
-<section class="section"><div class="section-head"><div><h2>Sana küçük bir mektup 💌</h2><p class="muted">Bu köşeyi Elif için özel bir mesajla kişiselleştirebilirsin.</p></div></div><p class="quote">“Umarım burada biraz huzur bulur, yağmurun sesinde kendine güzel bir an ayırırsın.”</p><button class="btn primary" id="openLetter2">Mektubu aç</button></section>
-<footer>Doğanın huzuruyla, <span class="heart">♥</span> Elifim için hazırlandı.<br><span class="song-help">Fotoğraflar internetten yüklenir. Yağmur ve diğer ambiyans sesleri tarayıcıda üretilen ses efektleridir.</span></footer>
+  <section class="card">
+    <h2>🤍 Küçük bir not</h2>
+    <p>İçinden geçenleri yaz. Not bu cihazın tarayıcısına kaydedilir.</p>
+    <textarea id="note" rows="5"
+      style="width:100%;background:#102725;color:white;border:1px solid var(--line);border-radius:13px;padding:12px"
+      placeholder="Bugün kendime söylemek istediğim..."></textarea>
+    <div class="actions">
+      <button class="primary" id="saveNote">Notu kaydet</button>
+      <button id="clearNote">Temizle</button>
+    </div>
+    <p id="noteStatus" class="status"></p>
+  </section>
 </main>
 
-<div class="letter" id="letterModal" role="dialog" aria-modal="true" aria-label="Elif için mektup"><div class="letter-card"><button class="close" id="closeLetter" aria-label="Mektubu kapat">×</button><div style="font-size:2rem">💌</div><h2>Elifim,</h2><p id="letterText">Bu küçük köşeyi sevdiğin yağmura ve doğaya eşlik etsin diye hazırladım. Umarım buraya geldiğinde biraz huzur bulur, dünyanın telaşından uzaklaşıp kendine güzel bir an ayırırsın. Yağmurun her damlası sana güzel şeyleri hatırlatsın. 🍃</p><p style="font-family:Georgia,serif">Sevgiyle… ♥</p><button class="btn" id="closeLetterBottom">Kapat</button></div></div>
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Tam ekran manzara"><button id="closeLightbox" aria-label="Kapat">×</button><img id="lightboxImg" alt="Seçilen doğa manzarası"></div><div class="toast" id="toast" role="status"></div>
+<footer>
+  <p>Biraz huzur, biraz yağmur, biraz da sen. 🤍</p>
+  <strong>901|Wysiz</strong>
+</footer>
 
 <script>
-window.onYouTubeIframeAPIReady=function(){};
-(function(){const t=document.createElement('script');t.src='https://www.youtube.com/iframe_api';t.async=true;document.head.appendChild(t);})();
-</script>
-<script>
-const $=id=>document.getElementById(id);
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
-// YouTube search and embedded player (search results require a YouTube Data API key)
-const API_KEY_STORAGE='elifYoutubeApiKey';
-let youtubeApiKey='';
-try{youtubeApiKey=localStorage.getItem(API_KEY_STORAGE)||'';$('apiKeyInput').value=youtubeApiKey;}catch(e){}
-$('apiForm').addEventListener('submit',e=>{e.preventDefault();youtubeApiKey=$('apiKeyInput').value.trim();try{if(youtubeApiKey)localStorage.setItem(API_KEY_STORAGE,youtubeApiKey);else localStorage.removeItem(API_KEY_STORAGE);}catch(e){}toast(youtubeApiKey?'API anahtarı bu tarayıcıya kaydedildi.':'API anahtarı girilmedi.');});
-$('clearApiKey').addEventListener('click',()=>{youtubeApiKey='';$('apiKeyInput').value='';try{localStorage.removeItem(API_KEY_STORAGE)}catch(e){}toast('API anahtarı silindi.')});
-function videoId(raw){raw=raw.trim();if(/^[\\w-]{11}$/.test(raw))return raw;try{const u=new URL(raw);if(u.hostname.includes('youtu.be'))return u.pathname.slice(1).split('/')[0];if(u.searchParams.get('v'))return u.searchParams.get('v');const m=u.pathname.match(/\\/(?:embed|shorts)\\/([\\w-]{11})/);if(m)return m[1];}catch(e){}return null;}
-function playVideo(id,title){$('youtubePlayer').src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?rel=0&enablejsapi=1';$('embedWrap').classList.add('visible');$('embedWrap').scrollIntoView({behavior:'smooth',block:'center'});if(title)toast('Şimdi oynatıcıda açılıyor: '+title);}
-$('embedForm').addEventListener('submit',e=>{e.preventDefault();const id=videoId($('videoInput').value);if(!id){toast('Geçerli bir YouTube bağlantısı veya video ID’si gir.');return;}playVideo(id);});
-$('songForm').addEventListener('submit',async e=>{e.preventDefault();const q=$('songQuery').value.trim();if(!q)return;if(!youtubeApiKey){$('searchStatus').textContent='Site içinde gerçek arama için yukarıdaki bölümden YouTube Data API anahtarını kaydet. Anahtarsız olarak bir YouTube bağlantısını aşağıya yapıştırıp burada oynatabilirsin.';$('api-settings')?.scrollIntoView({behavior:'smooth',block:'nearest'});return;}
-  $('searchStatus').textContent='Şarkılar aranıyor…';$('videoResults').innerHTML='';
-  try{const url='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=8&q='+encodeURIComponent(q)+'&key='+encodeURIComponent(youtubeApiKey);const response=await fetch(url);const data=await response.json();if(!response.ok)throw new Error(data.error?.message||'YouTube araması başarısız oldu.');const items=(data.items||[]).filter(x=>x.id&&x.id.videoId);if(!items.length){$('searchStatus').textContent='Bu arama için sonuç bulunamadı.';return;}$('searchStatus').textContent='Bir videoya dokun; aynı sayfadaki oynatıcıda açılacak.';items.forEach(item=>{const id=item.id.videoId,s=item.snippet||{},card=document.createElement('article');card.className='video-result';const img=document.createElement('img');img.loading='lazy';img.alt='';img.src=s.thumbnails?.medium?.url||s.thumbnails?.default?.url||'';const info=document.createElement('div');info.className='video-info';const title=document.createElement('h3');title.textContent=s.title||'YouTube videosu';const channel=document.createElement('p');channel.textContent=s.channelTitle||'';const button=document.createElement('button');button.className='btn primary';button.type='button';button.textContent='▶ Bu sayfada oynat';button.addEventListener('click',()=>{playVideo(id,s.title||'');$('videoInput').value='https://www.youtube.com/watch?v='+id;});info.append(title,channel,button);card.append(img,info);$('videoResults').appendChild(card);});}
-  catch(err){$('searchStatus').textContent='Arama yapılamadı: '+err.message+' API anahtarını ve Google Cloud kota/izin ayarlarını kontrol et.';}
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+/* GİRİŞ: Form gönderimini yakala ve ekranı kapat. */
+function enterSite(name, theme) {
+  name = name.trim().replace(/\s+/g, " ").slice(0, 28);
+  if (!name) {
+    $("loginStatus").textContent = "Lütfen kullanıcı adını yaz.";
+    return;
+  }
+
+  $("greeting").textContent = "Hoş geldin " + name + " 🤍";
+  document.title = "Delfinimin huzuru 🤍 · " + name;
+  changeTheme(theme);
+  $("welcome").classList.add("hidden");
+
+  try {
+    localStorage.setItem("delfinName", name);
+    localStorage.setItem("delfinTheme", theme);
+  } catch (e) {}
+}
+
+$("welcomeForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  enterSite($("visitorName").value, $("visitorTheme").value);
 });
-let favs=[];try{favs=JSON.parse(localStorage.getItem('elifFavs')||'[]')}catch(e){}
-function renderFavs(){$('favorites').innerHTML='';favs.forEach((f,i)=>{const b=document.createElement('button');b.className='fav-chip';b.textContent='♫ '+f+'  ×';b.title='Çalıştırmak için dokun, silmek için çift dokun';b.onclick=()=>{$('songQuery').value=f;$('songForm').requestSubmit()};b.ondblclick=()=>{favs.splice(i,1);persistFavs();renderFavs()};$('favorites').appendChild(b)});}
-function persistFavs(){try{localStorage.setItem('elifFavs',JSON.stringify(favs))}catch(e){}}
-$('saveSong').onclick=()=>{const q=$('songQuery').value.trim();if(!q){toast('Önce bir şarkı adı yaz.');return}if(!favs.includes(q))favs.unshift(q);favs=favs.slice(0,12);persistFavs();renderFavs();toast('Favorilere eklendi ♡')};
-$('clearFavs').onclick=()=>{favs=[];persistFavs();renderFavs();toast('Favoriler temizlendi')};renderFavs();
 
-// Web Audio ambient sound layers: synthesized sound textures, not recordings.
-let ctx=null, nodes={}, birdTimer=null, thunderTimer=null;
-function ensureAudio(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC){toast('Bu tarayıcı ses üretimini desteklemiyor.');return false}if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume();return true}
-function noiseBuffer(seconds=3){const b=ctx.createBuffer(1,ctx.sampleRate*seconds,ctx.sampleRate);const d=b.getChannelData(0);let last=0;for(let i=0;i<d.length;i++){const w=Math.random()*2-1;last=last*.12+w*.88;d[i]=last*.65+(Math.random()*2-1)*.35}return b}
-function makeNoise(key,type,cutoff,volume){if(nodes[key])return nodes[key];const src=ctx.createBufferSource();src.buffer=noiseBuffer();src.loop=true;const f=ctx.createBiquadFilter();f.type=type;f.frequency.value=cutoff;f.Q.value=.4;const g=ctx.createGain();g.gain.value=0;src.connect(f);f.connect(g);g.connect(ctx.destination);src.start();nodes[key]={src,f,g,volume};return nodes[key]}
-function setLayer(key,on,vol){if(!ensureAudio())return;let n=nodes[key];if(!n){const cfg={rain:['lowpass',1500,.55],wind:['lowpass',360,.3],water:['bandpass',650,.35]}[key];n=makeNoise(key,cfg[0],cfg[1],cfg[2]);}n.volume=vol/100; n.g.gain.setTargetAtTime(on?n.volume*(key==='rain'?.32:key==='wind'?.18:.16):0,ctx.currentTime,.25);updateAudioStatus();}
-function chirp(){if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(1800+Math.random()*900,ctx.currentTime);o.frequency.exponentialRampToValueAtTime(900+Math.random()*500,ctx.currentTime+.12);g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.025,ctx.currentTime+.025);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.22);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.24)}
-function setBirds(on){if(!ensureAudio())return;clearInterval(birdTimer);if(on)birdTimer=setInterval(()=>{if($('birdSwitch').checked)chirp()},900+Math.random()*2200);updateAudioStatus()}
-function rumble(){if(!ensureAudio())return;const n=makeNoise('thunder','lowpass',110,.0);n.f.frequency.setTargetAtTime(100+Math.random()*80,ctx.currentTime,.2);n.g.gain.cancelScheduledValues(ctx.currentTime);n.g.gain.setValueAtTime(.0001,ctx.currentTime);n.g.gain.linearRampToValueAtTime(.16,ctx.currentTime+1.2);n.g.gain.setTargetAtTime(.0001,ctx.currentTime+1.2,2.3)}
-function setThunder(on){clearInterval(thunderTimer);if(on){if(ensureAudio())thunderTimer=setInterval(()=>{if($('thunderSwitch').checked&&Math.random()>.52)rumble()},9000+Math.random()*9000)}updateAudioStatus()}
-function updateAudioStatus(){const active=['rain','wind','water'].some(k=>nodes[k]&&nodes[k].g.gain.value>.01)||$('birdSwitch').checked||$('thunderSwitch').checked;$('audioStatus').textContent=active?'Doğa sesleri hazır. Ses seviyelerini dilediğin gibi ayarlayabilirsin.':'Sesler kapalı. Açmak için bir düğmeye dokun.'}
-[['rain','rainSwitch','rainVolume','rainVolText'],['wind','windSwitch','windVolume','windVolText'],['water','waterSwitch','waterVolume','waterVolText']].forEach(([key,sw,vol,txt])=>{const update=()=>{ $(txt).textContent=$(vol).value+'%';setLayer(key,$(sw).checked,Number($(vol).value))};$(sw).addEventListener('change',update);$(vol).addEventListener('input',update)});
-$('birdSwitch').addEventListener('change',()=>setBirds($('birdSwitch').checked));$('thunderSwitch').addEventListener('change',()=>setThunder($('thunderSwitch').checked));
-$('allNatureOn').onclick=()=>{[['rain','rainSwitch','rainVolume'],['wind','windSwitch','windVolume'],['water','waterSwitch','waterVolume']].forEach(([k,s,v])=>{$(s).checked=true;setLayer(k,true,Number($(v).value))});$('birdSwitch').checked=true;setBirds(true);$('audioStatus').textContent='Doğa sesleri açıldı. İstersen ayrı ayrı kapatabilirsin.'};
-$('allNatureOff').onclick=()=>{['rainSwitch','windSwitch','waterSwitch','birdSwitch','thunderSwitch'].forEach(id=>$(id).checked=false);['rain','wind','water'].forEach(k=>setLayer(k,false,0));setBirds(false);setThunder(false);$('audioStatus').textContent='Tüm doğa sesleri kapatıldı.'};
-$('heroRain').onclick=()=>{const on=!$('rainSwitch').checked;$('rainSwitch').checked=on;setLayer('rain',on,Number($('rainVolume').value));$('heroRain').textContent=on?'⏸ Yağmuru durdur':'🌧 Yağmuru başlat'};
+/* TEMALAR */
+const images = {
+  forest: "photo-1448375240586-882707db888b",
+  window: "photo-1519692933481-e162a57d6721",
+  lake: "photo-1470770841072-f978cf4d019e",
+  night: "photo-1519681393784-d120267933ba",
+  sunset: "photo-1500530855697-b586d89ba3ee"
+};
 
-// Scene gallery
-const sceneUrls={forest:'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=90',window:'https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1600&q=90',lake:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1600&q=90',mountain:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=90',rainforest:'https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=1600&q=90',night:'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=90'};
-function openScene(url){$('lightboxImg').src=url;$('lightbox').classList.add('open')}
-document.querySelectorAll('.scene').forEach(el=>{const go=()=>openScene(sceneUrls[el.dataset.scene]);el.addEventListener('click',go);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
-$('randomScene').onclick=()=>{const keys=Object.keys(sceneUrls);const k=keys[Math.floor(Math.random()*keys.length)];$('backdrop').style.backgroundImage=`linear-gradient(180deg,rgba(4,14,15,.28),rgba(4,15,15,.86)),url("${sceneUrls[k]}")`;toast('Manzara değişti 🍃')};
-$('closeLightbox').onclick=()=>$('lightbox').classList.remove('open');$('lightbox').onclick=e=>{if(e.target===$('lightbox'))$('lightbox').classList.remove('open')};
+const themeNames = {
+  forest:"Yağmurlu orman",
+  window:"Camda yağmur",
+  lake:"Göl kenarı",
+  night:"Yağmurlu gece",
+  sunset:"Gün batımı"
+};
 
-// Notes and daily quotes
-const quotes=['“Bazen huzur, yağmurun sesini dinleyip hiçbir yere yetişmeye çalışmamaktır.”','“Doğa acele etmez; yine de her şey zamanında olur.”','“Yağmur diner, gökyüzü açılır; güzel şeylere yer hep kalır.”','“Biraz sessizlik, biraz yeşillik, biraz da yağmur… Bazen hepsi bu kadar.”','“En güzel anlar, kendin olabildiğin sakin anlardır.”'];
-$('newQuote').onclick=()=>{$('dailyQuote').textContent=quotes[Math.floor(Math.random()*quotes.length)]};
-try{$('noteInput').value=localStorage.getItem('elifNote')||''}catch(e){}
-$('saveNote').onclick=()=>{try{localStorage.setItem('elifNote',$('noteInput').value);$('noteStatus').textContent='Not bu tarayıcıya kaydedildi.';toast('Not kaydedildi ♡')}catch(e){$('noteStatus').textContent='Bu tarayıcı notu saklayamadı.'}};
-$('showNote').onclick=()=>{try{$('noteInput').value=localStorage.getItem('elifNote')||'';$('noteStatus').textContent=$('noteInput').value?'Kayıtlı not yüklendi.':'Henüz kayıtlı not yok.'}catch(e){}};
+function changeTheme(theme) {
+  if (!images[theme]) theme = "forest";
+  $("backdrop").style.backgroundImage =
+    'linear-gradient(#04100b77,#04100bd9),url("https://images.unsplash.com/' +
+    images[theme] + '?auto=format&fit=crop&w=1600&q=85")';
 
-// Uploaded photos are previewed for this page session; large images are not persisted to avoid filling storage.
-$('photoInput').addEventListener('change',e=>{const files=[...e.target.files||[]];files.forEach(file=>{if(!file.type.startsWith('image/'))return;const url=URL.createObjectURL(file);const img=document.createElement('img');img.src=url;img.alt='Eklenen doğa fotoğrafı';img.title='Tam ekran açmak için dokun';img.onclick=()=>openScene(url);$('gallery').prepend(img)});if(files.length)toast('Fotoğraf galeriye eklendi')});
-$('clearPhotos').onclick=()=>{$('gallery').innerHTML='';$('photoInput').value='';toast('Eklenen fotoğraflar kaldırıldı')};
+  document.querySelectorAll("[data-theme]").forEach(button => {
+    button.classList.toggle("active", button.dataset.theme === theme);
+  });
 
-// Letter
-function openLetter(){$('letterModal').classList.add('open')}function closeLetter(){$('letterModal').classList.remove('open')}
-$('openLetter').onclick=openLetter;$('openLetter2').onclick=openLetter;$('closeLetter').onclick=closeLetter;$('closeLetterBottom').onclick=closeLetter;$('letterModal').onclick=e=>{if(e.target===$('letterModal'))closeLetter()};
-
-// Focus timer
-let timerRemaining=600,timerInterval=null;function showTimer(){const m=Math.floor(timerRemaining/60),s=timerRemaining%60;$('timerDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
-$('timerMinutes').addEventListener('change',()=>{if(!timerInterval){timerRemaining=Number($('timerMinutes').value)*60;showTimer();$('timerStatus').textContent='Mola vermeye hazırsın.'}});
-$('timerStart').onclick=()=>{if(timerInterval){clearInterval(timerInterval);timerInterval=null;$('timerStart').textContent='Devam et';$('timerStatus').textContent='Mola duraklatıldı.';return}if(timerRemaining<=0)timerRemaining=Number($('timerMinutes').value)*60;$('timerStart').textContent='Duraklat';$('timerStatus').textContent='Şimdi sadece kendine zaman ayır.';timerInterval=setInterval(()=>{timerRemaining--;showTimer();if(timerRemaining<=0){clearInterval(timerInterval);timerInterval=null;$('timerStart').textContent='Yeniden başlat';$('timerStatus').textContent='Molan tamamlandı. Umarım biraz huzur bulmuşsundur. 🍃';toast('Mola tamamlandı 🌿')}},1000)};
-$('timerReset').onclick=()=>{clearInterval(timerInterval);timerInterval=null;timerRemaining=Number($('timerMinutes').value)*60;showTimer();$('timerStart').textContent='Başlat';$('timerStatus').textContent='Mola vermeye hazırsın.'};
-
-// Night mode
-$('nightSwitch').addEventListener('change',()=>{document.body.style.filter=$('nightSwitch').checked?'brightness(.78) saturate(.8)':'';toast($('nightSwitch').checked?'Gece modu açıldı 🌙':'Normal görünüm açıldı')});
-showTimer();
-
-// Personal welcome screen and local-time Turkish greeting (Türkiye time zone)
-const gate=$('welcomeGate'), nameField=$('visitorName'), themeField=$('visitorTheme');
-function applyTheme(theme){
-  document.body.classList.remove('theme-forest','theme-window','theme-lake','theme-night','theme-sunset');
-  document.body.classList.add('theme-'+theme);
-  try{localStorage.setItem('elifTheme',theme)}catch(e){}
-  startThemeRain(theme);
+  $("themeStatus").textContent = themeNames[theme] + " seçildi.";
+  try { localStorage.setItem("delfinTheme", theme); } catch (e) {}
 }
-function timeGreeting(name){
-  const parts=new Intl.DateTimeFormat('tr-TR',{timeZone:'Europe/Istanbul',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
-  const hour=Number(parts.find(p=>p.type==='hour')?.value||0);
-  let greet;
-  if(hour>=5&&hour<11)greet='Günaydın';
-  else if(hour>=11&&hour<17)greet='İyi günler';
-  else if(hour>=17&&hour<22)greet='İyi akşamlar';
-  else greet='İyi geceler';
-  return greet+' '+name+' ♥';
-}
-function enterWithName(name,theme){
-  name=(name||'').trim().replace(/\s+/g,' ').slice(0,28);
-  if(!name)return;
-  $('personalGreeting').innerHTML='';
-  const line=document.createElement('span');line.textContent=timeGreeting(name);
-  const sub=document.createElement('small');sub.textContent='Bu küçük dünya bugün senin için hazırlandı.';
-  $('personalGreeting').append(line,sub);
-  document.title='Delfinimin huzuru 🤍 · '+name;
-  try{localStorage.setItem('elifVisitorName',name);localStorage.setItem('elifTheme',theme)}catch(e){}
-  applyTheme(theme);
-  gate.classList.add('is-hidden');
-}
-$('welcomeForm').addEventListener('submit',e=>{e.preventDefault();enterWithName(nameField.value,themeField.value)});
-let savedName='',savedTheme='forest';
-try{savedName=localStorage.getItem('elifVisitorName')||'';savedTheme=localStorage.getItem('elifTheme')||'forest'}catch(e){}
-if(savedName){nameField.value=savedName;themeField.value=savedTheme;enterWithName(savedName,savedTheme)}else{setTimeout(()=>nameField.focus(),100)}
-// Rain animation changes density and direction by the selected scene theme.
-const rainCanvas=$('rainCanvas'), rainCtx=rainCanvas.getContext('2d');let rainDrops=[],rainRAF=0,currentRainTheme='forest';
-function resizeRain(){const dpr=Math.min(window.devicePixelRatio||1,2);rainCanvas.width=Math.floor(innerWidth*dpr);rainCanvas.height=Math.floor(innerHeight*dpr);rainCtx.setTransform(dpr,0,0,dpr,0,0);const count=currentRainTheme==='window'?110:currentRainTheme==='night'?145:currentRainTheme==='sunset'?48:currentRainTheme==='lake'?85:95;rainDrops=Array.from({length:count},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,len:currentRainTheme==='window'?Math.random()*14+5:Math.random()*18+8,speed:Math.random()*4+3,drift:currentRainTheme==='window'?-.25:currentRainTheme==='sunset'?.45:-.8,alpha:Math.random()*.35+.12}));}
-function drawRain(){rainCtx.clearRect(0,0,innerWidth,innerHeight);const isWindow=currentRainTheme==='window';rainDrops.forEach(d=>{rainCtx.beginPath();rainCtx.moveTo(d.x,d.y);rainCtx.lineTo(d.x+d.drift*d.len*.25,d.y+d.len);rainCtx.strokeStyle='rgba(190,222,236,'+d.alpha+')';rainCtx.lineWidth=isWindow?1.5:1;rainCtx.stroke();d.x+=d.drift;d.y+=d.speed;if(d.y>innerHeight+20){d.y=-20;d.x=Math.random()*innerWidth}if(d.x<-20)d.x=innerWidth+10;if(d.x>innerWidth+20)d.x=-10;});rainRAF=requestAnimationFrame(drawRain);}
-function startThemeRain(theme){currentRainTheme=theme;resizeRain();if(!rainRAF)drawRain();}
-window.addEventListener('resize',resizeRain);resizeRain();
 
-// Use authentic recorded audio selected from the device; browsers require a user tap to play.
-let realAudioObjectUrl=null;
-$('realAudioFile').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(realAudioObjectUrl)URL.revokeObjectURL(realAudioObjectUrl);realAudioObjectUrl=URL.createObjectURL(file);$('realRainAudio').src=realAudioObjectUrl;$('realRainAudio').style.display='block';$('realRainAudio').load();$('audioStatus').textContent='Gerçek ses dosyası hazır: '+file.name;});
-$('realAudioPlay').addEventListener('click',async()=>{const a=$('realRainAudio');if(!a.src){toast('Önce gerçek bir yağmur/gök gürültüsü ses dosyası seç.');return;}try{await a.play();$('audioStatus').textContent='Gerçek yağmur/gök gürültüsü kaydı çalıyor.';}catch(e){toast('Ses başlatılamadı. Dosyanın ses formatını kontrol et.');}});
-$('realAudioStop').addEventListener('click',()=>{const a=$('realRainAudio');a.pause();a.currentTime=0;$('audioStatus').textContent='Gerçek ses kaydı durduruldu.';});
+document.querySelectorAll("[data-theme]").forEach(button => {
+  button.addEventListener("click", () => changeTheme(button.dataset.theme));
+});
 
-// Top shortcuts
-document.querySelectorAll('[data-jump]').forEach(b=>b.addEventListener('click',()=>{const target=$(b.dataset.jump);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}));
-let selectedTheme='forest', themeSoundsOn=false, musicVolume=70, thunderGainNode=null, themeThunderTimer=null;
-const themeNames={forest:'Yağmurlu Orman',window:'Camda Yağmur',lake:'Göl Kenarı',night:'Yağmurlu Gece',sunset:'Yağmur Sonrası',mountain:'Sisli Dağlar'};
-function setThemeThunder(on,volume){clearInterval(themeThunderTimer);if(!on||volume<=0)return;themeThunderTimer=setInterval(()=>{if(themeSoundsOn&&Math.random()>.38)playThemeThunder(volume)},10500+Math.random()*11000);}
-function playThemeThunder(volume){if(!ensureAudio())return;const n=makeNoise('themeThunder','lowpass',95,0);n.f.frequency.setTargetAtTime(75+Math.random()*60,ctx.currentTime,.4);n.g.gain.cancelScheduledValues(ctx.currentTime);n.g.gain.setValueAtTime(.0001,ctx.currentTime);n.g.gain.linearRampToValueAtTime(Math.max(.01,volume/100*.23),ctx.currentTime+1.8);n.g.gain.setTargetAtTime(.0001,ctx.currentTime+1.8,2.8);}
-function applyThemeCard(theme){
- selectedTheme=theme;applyTheme(theme);document.querySelectorAll('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.theme===theme));
- $('activeThemeLabel').textContent=themeNames[theme]||'Tema';$('mixerTitle').textContent=(themeNames[theme]||'Tema')+' · Ses ayarları';
- // Auto-enable rain and thunder textures on a user-initiated theme selection.
- themeSoundsOn=true;
- $('rainSwitch').checked=true;$('thunderSwitch').checked=true;
- const rv=Number($('themeRainVolume').value),tv=Number($('themeThunderVolume').value);
- $('rainVolume').value=rv;$('rainVolText').textContent=rv+'%';setLayer('rain',true,rv);
- $('themeRainText').textContent=rv+'%';$('themeThunderText').textContent=tv+'%';
- setThemeThunder(true,tv);
- $('themeSoundToggle').textContent='⏸ Sesleri durdur';
- $('themeSoundStatus').textContent='Yağmur başladı; gök gürültüsü ara sıra duyulacak. Tarayıcı ses için bu tema seçimine dokunmanı bekler.';
- // If the visitor already selected a genuine recording, play it on the same gesture.
- const a=$('realRainAudio');if(a.src){a.volume=rv/100;a.play().catch(()=>{});}
- $('themeMixer').scrollIntoView({behavior:'smooth',block:'nearest'});
+function go(id) {
+  $(id).scrollIntoView({behavior:"smooth",block:"start"});
 }
-document.querySelectorAll('.theme-card').forEach(c=>c.addEventListener('click',()=>applyThemeCard(c.dataset.theme)));
-$('themeRainVolume').addEventListener('input',e=>{const v=Number(e.target.value);$('themeRainText').textContent=v+'%';$('rainVolume').value=v;$('rainVolText').textContent=v+'%';if(themeSoundsOn){$('rainSwitch').checked=v>0;setLayer('rain',v>0,v);}});
-$('themeThunderVolume').addEventListener('input',e=>{const v=Number(e.target.value);$('themeThunderText').textContent=v+'%';$('thunderSwitch').checked=v>0;setThemeThunder(themeSoundsOn&&v>0,v);});
-$('themeMusicVolume').addEventListener('input',e=>{musicVolume=Number(e.target.value);$('themeMusicText').textContent=musicVolume+'%';try{if(window.themeYTPlayer&&typeof window.themeYTPlayer.setVolume==='function')window.themeYTPlayer.setVolume(musicVolume);}catch(err){}const a=$('realRainAudio');if(a.src)a.volume=musicVolume/100;});
-$('themeSoundToggle').addEventListener('click',()=>{themeSoundsOn=!themeSoundsOn;const rv=Number($('themeRainVolume').value),tv=Number($('themeThunderVolume').value);$('rainSwitch').checked=themeSoundsOn&&rv>0;$('thunderSwitch').checked=themeSoundsOn&&tv>0;setLayer('rain',$('rainSwitch').checked,rv);setThemeThunder(themeSoundsOn&&tv>0,tv);if(!themeSoundsOn){$('realRainAudio').pause();$('themeSoundToggle').textContent='▶ Sesleri başlat';$('themeSoundStatus').textContent='Tema sesleri durduruldu.';}else{$('themeSoundToggle').textContent='⏸ Sesleri durdur';$('themeSoundStatus').textContent='Yağmur ve gök gürültüsü yeniden başladı.';if($('realRainAudio').src)$('realRainAudio').play().catch(()=>{});}});
-$('themeAudioChoose').addEventListener('click',()=>$('realAudioFile').click());
-$('realAudioFile').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(f&&themeSoundsOn){const a=$('realRainAudio');a.volume=Number($('themeRainVolume').value)/100;a.play().catch(()=>{});}});
-$('embedForm').addEventListener('submit',()=>{let attempts=0;const setup=()=>{if(window.YT&&window.YT.Player){try{if(window.themeYTPlayer&&typeof window.themeYTPlayer.setVolume==='function'){window.themeYTPlayer.loadVideoById(videoId($('videoInput').value));window.themeYTPlayer.setVolume(musicVolume);}else{window.themeYTPlayer=new YT.Player('youtubePlayer',{events:{onReady:e=>e.target.setVolume(musicVolume)}});}return;}catch(e){}}if(attempts++<20)setTimeout(setup,250);};setTimeout(setup,300);});
-document.querySelectorAll('.video-result button').forEach(()=>{});
+
+/* YOUTUBE BAĞLANTISI */
+$("musicForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const raw = $("videoUrl").value.trim();
+  let id = "";
+
+  try {
+    const url = new URL(raw);
+
+    if (url.hostname === "youtu.be" ||
+        url.hostname.endsWith(".youtu.be")) {
+      id = url.pathname.split("/").filter(Boolean)[0] || "";
+    } else if (
+      url.hostname === "youtube.com" ||
+      url.hostname.endsWith(".youtube.com") ||
+      url.hostname === "youtube-nocookie.com"
+    ) {
+      id = url.searchParams.get("v") || "";
+      if (!id) {
+        const match = url.pathname.match(/\/(?:embed|shorts)\/([^/]+)/);
+        if (match) id = match[1];
+      }
+    }
+  } catch (e) {}
+
+  if (!/^[\w-]{11}$/.test(id)) {
+    $("musicStatus").textContent = "Geçerli bir YouTube video bağlantısı gir.";
+    return;
+  }
+
+  $("player").src = "https://www.youtube-nocookie.com/embed/" +
+    encodeURIComponent(id);
+  $("playerBox").classList.remove("hidden");
+  $("musicStatus").textContent = "Video hazır. Oynatmak için videoya dokun.";
+});
+
+/* YAĞMUR SESİ */
+let audioContext = null;
+let rainSource = null;
+let rainGain = null;
+
+function startRain() {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) {
+    $("soundStatus").textContent = "Tarayıcın ses üretimini desteklemiyor.";
+    return;
+  }
+
+  try {
+    if (!audioContext) {
+      audioContext = new AudioContextClass();
+
+      const length = audioContext.sampleRate * 3;
+      const buffer = audioContext.createBuffer(
+        1, length, audioContext.sampleRate
+      );
+      const data = buffer.getChannelData(0);
+
+      let last = 0;
+      for (let i = 0; i < length; i++) {
+        const white = Math.random() * 2 - 1;
+        last = last * 0.85 + white * 0.15;
+        data[i] = last;
+      }
+
+      rainSource = audioContext.createBufferSource();
+      rainSource.buffer = buffer;
+      rainSource.loop = true;
+
+      const filter = audioContext.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.value = 1100;
+
+      rainGain = audioContext.createGain();
+      rainGain.gain.value = Number($("rainVolume").value) / 100 * 0.16;
+
+      rainSource.connect(filter);
+      filter.connect(rainGain);
+      rainGain.connect(audioContext.destination);
+      rainSource.start();
+    }
+
+    audioContext.resume();
+    rainGain.gain.setTargetAtTime(
+      Number($("rainVolume").value) / 100 * 0.16,
+      audioContext.currentTime, 0.1
+    );
+
+    $("rainToggle").textContent = "⏸ Yağmuru durdur";
+    $("soundStatus").textContent = "Yağmur sesi açık.";
+  } catch (error) {
+    $("soundStatus").textContent = "Ses başlatılamadı. Tekrar dene.";
+  }
+}
+
+function stopRain() {
+  if (audioContext && rainGain) {
+    rainGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.1);
+  }
+  $("rainToggle").textContent = "▶ Yağmuru başlat";
+  $("soundStatus").textContent = "Yağmur sesi durduruldu.";
+}
+
+$("rainToggle").addEventListener("click", () => {
+  if (audioContext && rainGain && audioContext.state === "running" &&
+      Number(rainGain.gain.value) > 0.001) {
+    stopRain();
+  } else {
+    startRain();
+  }
+});
+
+$("rainStop").addEventListener("click", stopRain);
+
+$("rainVolume").addEventListener("input", () => {
+  if (audioContext && rainGain && audioContext.state === "running") {
+    rainGain.gain.setTargetAtTime(
+      Number($("rainVolume").value) / 100 * 0.16,
+      audioContext.currentTime, 0.1
+    );
+  }
+});
+
+/* HUZUR SAYACI */
+let remaining = 600;
+let timerId = null;
+
+function renderClock() {
+  const min = Math.floor(remaining / 60);
+  const sec = remaining % 60;
+  $("clock").textContent =
+    String(min).padStart(2,"0") + ":" + String(sec).padStart(2,"0");
+}
+
+$("minutes").addEventListener("change", () => {
+  if (timerId === null) {
+    remaining = Number($("minutes").value) * 60;
+    renderClock();
+  }
+});
+
+$("timerStart").addEventListener("click", () => {
+  if (timerId !== null) {
+    clearInterval(timerId);
+    timerId = null;
+    $("timerStart").textContent = "Devam et";
+    $("timerStatus").textContent = "Sayaç duraklatıldı.";
+    return;
+  }
+
+  if (remaining <= 0) remaining = Number($("minutes").value) * 60;
+
+  $("timerStart").textContent = "Duraklat";
+  $("timerStatus").textContent = "Şimdi kendine zaman ayır. 🍃";
+
+  timerId = setInterval(() => {
+    remaining--;
+    renderClock();
+
+    if (remaining <= 0) {
+      clearInterval(timerId);
+      timerId = null;
+      $("timerStart").textContent = "Yeniden başlat";
+      $("timerStatus").textContent = "Molan tamamlandı. 🤍";
+    }
+  }, 1000);
+});
+
+$("timerReset").addEventListener("click", () => {
+  clearInterval(timerId);
+  timerId = null;
+  remaining = Number($("minutes").value) * 60;
+  renderClock();
+  $("timerStart").textContent = "Başlat";
+  $("timerStatus").textContent = "Molan için hazırsın.";
+});
+
+/* NOT DEFTERİ */
+try {
+  $("note").value = localStorage.getItem("delfinNote") || "";
+} catch (e) {}
+
+$("saveNote").addEventListener("click", () => {
+  try {
+    localStorage.setItem("delfinNote", $("note").value);
+    $("noteStatus").textContent = "Not bu tarayıcıya kaydedildi. 🤍";
+  } catch (e) {
+    $("noteStatus").textContent = "Not kaydedilemedi.";
+  }
+});
+
+$("clearNote").addEventListener("click", () => {
+  $("note").value = "";
+  try { localStorage.removeItem("delfinNote"); } catch (e) {}
+  $("noteStatus").textContent = "Not temizlendi.";
+});
+
+/* YAĞMUR ANİMASYONU */
+const canvas = $("rain");
+const ctx = canvas.getContext("2d");
+let drops = [];
+
+function resizeCanvas() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.floor(innerWidth * dpr);
+  canvas.height = Math.floor(innerHeight * dpr);
+  canvas.style.width = innerWidth + "px";
+  canvas.style.height = innerHeight + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  drops = Array.from({length:70}, () => ({
+    x:Math.random() * innerWidth,
+    y:Math.random() * innerHeight,
+    length:8 + Math.random() * 14,
+    speed:3 + Math.random() * 5
+  }));
+}
+
+function drawRain() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  ctx.strokeStyle = "rgba(210,235,240,.28)";
+  ctx.lineWidth = 1;
+
+  for (const drop of drops) {
+    ctx.beginPath();
+    ctx.moveTo(drop.x, drop.y);
+    ctx.lineTo(drop.x - 2, drop.y + drop.length);
+    ctx.stroke();
+
+    drop.x -= 0.8;
+    drop.y += drop.speed;
+
+    if (drop.y > innerHeight) {
+      drop.y = -drop.length;
+      drop.x = Math.random() * innerWidth;
+    }
+    if (drop.x < 0) drop.x = innerWidth;
+  }
+
+  requestAnimationFrame(drawRain);
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+drawRain();
+
+/* KAYITLI TEMA VE İSİM */
+try {
+  const savedName = localStorage.getItem("delfinName");
+  const savedTheme = localStorage.getItem("delfinTheme") || "forest";
+
+  changeTheme(savedTheme);
+
+  if (savedName) {
+    $("visitorName").value = savedName;
+    enterSite(savedName, savedTheme);
+  }
+} catch (e) {
+  changeTheme("forest");
+}
 </script>
 </body>
-</html>
+  </html>
